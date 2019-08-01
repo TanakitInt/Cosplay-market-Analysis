@@ -4,7 +4,10 @@
 
 This R program will plot a data into picture for you!  
 
-I always wonder why are there many young female more than young male in copslay event. So I just collect some sample data in local cosplay trading group in Thailand, the country I live.
+I always wonder why are there many young female more than young male in copslay event. So I just collect some sample data in local cosplay trading group in Thailand, the country I live.  
+
+Please remind that this is only SAMPLE collected in the cosplay market. It does not represent to ALL cosplayer in Thailand.  
+Some are not in this kind of group or any trading market.
 
 <i>Honestly, I'm cosplayer too, please consider follow me!</i>  
 <b>Cosplay Social Media</b>  
