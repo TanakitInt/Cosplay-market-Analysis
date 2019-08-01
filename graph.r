@@ -1,13 +1,4 @@
-#install addtional Packages
-install.packages("Rttf2pt1", dependencies = TRUE)
-library(Rttf2pt1)
-install.packages("waffle", dependencies = TRUE)
-library(waffle)
-install.packages("ggthemes", dependencies = TRUE)
-library(ggthemes)
-
-
-#A pie graph for sex
+#A graph for sex
 sexPlot = function() 
 {
     #sex data processing
@@ -17,63 +8,73 @@ sexPlot = function()
     #convert to dataframe
     df = as.data.frame(countSex)
 
-    vals = c(df$Freq)
-
-    # Give the chart file a name
-    #png(file = "Distribution of a Cosplay market by Sex.png")
+    data = c(df$Freq)
 
     #graph
-    val_names = sprintf("%s (%s)", c("Female", "Male"), scales::percent(round(vals/sum(vals), 2)))
-    names(vals) = val_names
+    sex = sprintf("%s (%s)", c("Female", "Male"), scales::percent(round(data/sum(data), 2)))
+    names(data) = sex
 
-    waffle::waffle(vals)
+    #export to file when donw
+    jpeg("Distribution of a Cosplay market by Sex.jpg", width = 1200, height = 600)
 
-    #dev.off()
+    #start plotting
+    plot(waffle::waffle(data))
+
+    #close a file
+    dev.off()
 }
 
-#A bar graph for age
+#A graph for age
 agePlot = function()
 {
+    library(ggplot2)
+
     #age data processing
     ageData = read.csv("data.csv")
     countAge = table(ageData$Age)
-
-    #merging data for age >= 27
-    #overRange = subset(countAge,  >= 27)
 
     #excluding "FALSE" age value
     excluding = names(countAge) %in% c("FALSE")
     excludedData = countAge[!excluding]
 
-    data = excludedData
-    
-#    #Set a fixed axis value (For age)
-#    xAxis = c('13', '14', '15', '16', '17', '18', '19', 
-#        '20', '21', '22', '23', '24', '25', '26', '27 and up')
-#
-#    # Give the chart file a name
-#    png(file = "Distribution of a Cosplay market by Age.png")
-#
+    #convert to dataframe
+    df = as.data.frame(excludedData)
+    data = c(df$Freq)
+
+    #age range
+    ageRange = c('13', '14', '15', '16', '17', '18', '19', '20', 
+        '21', '22', '23', '24', '25', '26', '27 and up')
+
+    #combined an over range age
+    #For "R" ARRAY START AT ONE!
+    overRange = c(data[15] + data[16] + data[17])
+
+    #delete a data in Default dataframe
+    data = data[-c(15, 16, 17)]
+
+    #insert an Over range data in Default dataframe
+    data[15] = overRange[1]
+
     #decoration
     color = c('#E6EE9C') #light lemon
-#
-#    #Chart
-#    barplot(excludedData, names.arg = xAxis, xlab = "Ages", 
-#        ylab = "People", col = color, 
-#        main = "Distribution of a Cosplay market by Age")
 
-    hist(data, breaks = 1, prob = TRUE, col = color)
-    lines(density(data))
+    #export to file when done
+    jpeg("Distribution of a Cosplay market by Age.jpg", width = 1200, height = 600)
 
+    #start plotting
+    barplot(data, main="Distribution of a Cosplay market by Age",
+    xlab = "Age range", ylab = "People", col=c(color), legend = ageRange)
+
+    #close a file
     dev.off()
 
 }
 
+ageDataVerify = function()
+{
+    ageData = read.csv("data.csv")
+    countAge = table(ageData$Age)
 
-
-
-
-#age data check
-countAge = table(ageData$Age)
-countAge
+    countAge
+}
 
