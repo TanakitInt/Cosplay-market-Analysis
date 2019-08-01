@@ -56,14 +56,16 @@ agePlot = function()
     data[15] = overRange[1]
 
     #decoration
-    color = c('#E6EE9C') #light lemon
+    #shading pink
+    color = c('#EAD6E3', '#E4C9D9', '#DDBBD0', '#D6AEC7', '#CFA0BD', '#C892B4', '#C185AA', 
+        '#BB77A1', '#B46A97', '#AD5C8E', '#A35284', '#954B79', '#88446E', '#7A3E63', '#6D3758') 
 
     #export to file when done
     jpeg("Distribution of a Cosplay market by Age.jpg", width = 1200, height = 600)
 
     #start plotting
     barplot(data, main="Distribution of a Cosplay market by Age",
-    xlab = "Age range", ylab = "People", col=c(color), legend = ageRange)
+    xlab = "Age", ylab = "People", col=c(color), names.arg = ageRange)
 
     #close a file
     dev.off()
